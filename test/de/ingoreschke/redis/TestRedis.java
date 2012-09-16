@@ -6,16 +6,6 @@ import org.junit.Test;
 public class TestRedis {
 	
 	@Test
-	public void testInterface(){
-		IRedis redis;
-	}
-	
-	@Test
-	public void testImplementation(){
-		IRedis redis = new MockRedis();
-	}
-	
-	@Test
 	public void testGet(){
 		IRedis redis = new MockRedis();
 		redis.get("test");
