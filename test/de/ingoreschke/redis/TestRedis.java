@@ -13,8 +13,10 @@ public class TestRedis {
 	}
 	
 	@Test
-	public void testGet(){
-		redis.get("test");
+	public void testGet() throws NoSuchMethodException, SecurityException{
+		
+		//redis.getClass().getMethod("get").toString();
+			
 	}
 	
 	@Test
@@ -51,4 +53,12 @@ public class TestRedis {
 		
 	}
 	*/
+	@Test
+	public void testSet_DuplicateKeys(){
+		String key = "myKey";
+		String expected = "new Value";
+		redis.set(key, "orginalValue");
+		redis.set(key, expected);
+		Assert.assertEquals(expected,redis.get(key) );
+	}
 }
