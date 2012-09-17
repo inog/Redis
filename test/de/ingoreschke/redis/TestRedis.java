@@ -13,10 +13,10 @@ public class TestRedis {
 	}
 	
 	@Test
-	public void testGet() throws NoSuchMethodException, SecurityException{
-		
-		//redis.getClass().getMethod("get").toString();
-			
+	public void testGet(){
+		Object result = redis.get("tesKey");
+		Boolean condition = (result instanceof String) || (result == null);
+		Assert.assertTrue("result should be an String or null.", condition);	
 	}
 	
 	@Test
@@ -35,7 +35,8 @@ public class TestRedis {
 	
 	@Test
 	public void testSet(){
-		redis.set("testKey","testValue");
+		String expected = "OK";
+		Assert.assertEquals(expected, redis.set("testKey","testValue"));
 	}
 	
 	@Test
@@ -47,12 +48,16 @@ public class TestRedis {
 	}
 	
 	
-	/* I should test when value is not a string.
-	@Test (expected )
-	public void testSet_NoString(){
-		
+	
+	@Test 
+	public void testSet_Object(){
+		String key = "testkey";
+		Object objIn = new Object(); 
+		String expected = objIn.toString();
+		redis.set(key, objIn);
+		Assert.assertEquals(expected, redis.get(key));
 	}
-	*/
+
 	@Test
 	public void testSet_DuplicateKeys(){
 		String key = "myKey";

@@ -9,8 +9,9 @@ public class MockRedis implements IRedis {
 	}
 	
 	@Override
-	public void set(String key, String value) {
+	public String set(String key, Object value) {
 		
+		return "OK";
 	}
 	
 
