@@ -19,6 +19,12 @@ public class MockRedis implements IRedis {
 		store.put(key, value.toString());
 		return "OK";
 	}
+
+	@Override
+	public Integer incr(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

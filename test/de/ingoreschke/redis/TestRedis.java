@@ -1,5 +1,7 @@
 package de.ingoreschke.redis;
 
+import java.util.HashMap;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +25,6 @@ public class TestRedis {
 	public void testGet_keyDontExits() {
 		Assert.assertEquals(null, redis.get("test"));
 	}
-	
 
 	@Test
 	public void testGet_keyExists(){
@@ -48,7 +49,6 @@ public class TestRedis {
 	}
 	
 	
-	
 	@Test 
 	public void testSet_Object(){
 		String key = "testkey";
@@ -65,5 +65,29 @@ public class TestRedis {
 		redis.set(key, "orginalValue");
 		redis.set(key, expected);
 		Assert.assertEquals(expected,redis.get(key) );
+	}
+	
+	@Test
+	public void testIncr_keyDontExists(){
+		Object result = redis.incr("test");
+		Integer expected = new Integer(1);
+		Assert.assertEquals(expected, result);
+	}
+	
+	@Test
+	public void testIncr_valueValid(){
+		int in = 5;
+		String key = "count";
+		redis.set(key, in);
+		Integer expected = Integer.valueOf(++in);
+		Assert.assertEquals(expected, redis.incr(key));
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testIncr_valueInvalid(){
+		String key = "count";
+		String value = "Im Not a Number";
+		redis.set(key, value);
+		redis.incr(key);
 	}
 }
