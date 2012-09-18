@@ -1,6 +1,6 @@
 package de.ingoreschke.redis;
 
-import java.util.HashMap;
+
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +11,7 @@ public class TestRedis {
 	
 	@Before	
 	public void setUp(){
-		redis = new MockRedis();
+		redis = new Redis();
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class TestRedis {
 	@Test
 	public void testIncr_keyDontExists(){
 		Object result = redis.incr("test");
-		Integer expected = new Integer(1);
+		Integer expected = 1;
 		Assert.assertEquals(expected, result);
 	}
 	
@@ -90,4 +90,5 @@ public class TestRedis {
 		redis.set(key, value);
 		redis.incr(key);
 	}
+	
 }
