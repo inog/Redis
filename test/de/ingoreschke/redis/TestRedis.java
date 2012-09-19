@@ -88,7 +88,17 @@ public class TestRedis {
 		String key = "count";
 		String value = "Im Not a Number";
 		redis.set(key, value);
+		redis.incr(key);//this should throw an exception.
+	}
+	
+	@Test
+	public void testIncr_returningString() {
+		String key = "mykey";
+		String expected = "11";
+		redis.set(key, "10");
 		redis.incr(key);
+		Assert.assertEquals(expected, redis.get(key));
+		
 	}
 	
 }
