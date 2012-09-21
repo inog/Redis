@@ -3,6 +3,7 @@ package de.ingoreschke.redis;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class RedisString implements IRedisString {
 	
@@ -44,4 +45,14 @@ private HashMap<String, String> store;
 		}
 		return returnList;
 	}
+
+	@Override
+	public String mSet(Map<String, Object> map) {
+		for(Map.Entry<String, Object> entry : map.entrySet()){
+			set(entry.getKey(), entry.getValue());
+		}
+		return "OK";
+	}
+
+	
 }

@@ -1,6 +1,7 @@
 package de.ingoreschke.redis;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class Redis implements IRedis {
@@ -25,4 +26,9 @@ public class Redis implements IRedis {
 	public List<String> mGet(String... keys) {
 		return redisString.mGet(keys);
 	}
+
+	public String mSet(Map<String, Object> map) {
+		return redisString.mSet(map);
+	}
+
 }

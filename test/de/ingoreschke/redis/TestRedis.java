@@ -2,7 +2,9 @@ package de.ingoreschke.redis;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -117,5 +119,41 @@ public class TestRedis {
 		redis.set("key 2", "value2");
 		redis.set("key 3", "value3");
 		Assert.assertEquals(3, redis.mGet("key 1", "key 2", "key 3").size());
+	}
+	
+	@Test
+	public void testMSet_returningString(){
+		String expected = "OK";
+		Map<String, Object> m = createExampleMap();
+		Assert.assertEquals(expected, redis.mSet(m));
+	}
+	
+	@Test
+	public void testMSet_KeyExists(){
+		redis.set("key3", "My special value");
+		redis.mSet(createExampleMap());
+		String expected = "value3";
+		Assert.assertEquals(expected, redis.get("key3"));
+	}
+	
+	@Test
+	public void testMSet_Object(){
+		Object o = new Object();
+		String expected = o.toString();
+		Map<String, Object> m = createExampleMap();
+		m.put("myObj", o);
+		redis.mSet(m);
+		Assert.assertEquals(expected, redis.get("myObj"));
+	}
+	
+	
+	/* Helper functions */
+	private Map<String, Object> createExampleMap(){
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("key1", "value1");
+		m.put("key2", "value2");
+		m.put("key3", "value3");
+		m.put("key4", "value4");
+		return m;
 	}
 }
