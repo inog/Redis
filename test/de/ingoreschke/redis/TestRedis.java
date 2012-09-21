@@ -2,6 +2,8 @@ package de.ingoreschke.redis;
 
 
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +16,6 @@ public class TestRedis {
 		redis = new Redis();
 	}
 	
-	@Test
-	public void testGet(){
-		Object result = redis.get("tesKey");
-		Boolean condition = (result instanceof String) || (result == null);
-		Assert.assertTrue("result should be an String or null.", condition);	
-	}
 	
 	@Test
 	public void testGet_keyDontExits() {
@@ -79,7 +75,7 @@ public class TestRedis {
 		int in = 5;
 		String key = "count";
 		redis.set(key, in);
-		Integer expected = Integer.valueOf(++in);
+		int expected = Integer.valueOf(++in);
 		Assert.assertEquals(expected, redis.incr(key));
 	}
 	
@@ -98,7 +94,28 @@ public class TestRedis {
 		redis.set(key, "10");
 		redis.incr(key);
 		Assert.assertEquals(expected, redis.get(key));
-		
 	}
 	
+	@Test
+	public void testMGet_KeyDontExist(){
+		String key = "notExists";
+		List<String> returnList = redis.mGet(key);
+		Assert.assertEquals(null, returnList.get(0));
+	}
+	
+	@Test
+	public void testMGet_KeysExists(){
+		redis.set("key1", "value1");
+		redis.set("key2", "value2");
+		redis.set("key3", "value3");
+		Assert.assertEquals(3, redis.mGet("key1 key2 key3").size());
+	}
+	
+	@Test
+	public void testMGet_KeysWithSpace(){
+		redis.set("key 1", "value1");
+		redis.set("key 2", "value2");
+		redis.set("key 3", "value3");
+		Assert.assertEquals(3, redis.mGet("key 1 key 2 key 3").size());
+	}
 }

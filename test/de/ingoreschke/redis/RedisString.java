@@ -1,6 +1,8 @@
 package de.ingoreschke.redis;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RedisString implements IRedisString {
 	
@@ -22,7 +24,7 @@ private HashMap<String, String> store;
 	}
 
 	@Override
-	public Integer incr(String key) {
+	public int incr(String key) {
 		if(!store.containsKey(key)){
 			store.put(key, "0");	
 		}
@@ -30,5 +32,17 @@ private HashMap<String, String> store;
 		++i;
 		store.put(key, Integer.toString(i));
 		return i;
+	}
+
+	@Override
+	public List<String> mGet(String keys) {
+		String[] keyarray = keys.split(" ");
+		List <String> returnList = new LinkedList<String>();
+		
+		for (String key : keyarray) {
+			String val = store.get(key);
+			returnList.add(val);
+		}
+		return returnList;
 	}
 }

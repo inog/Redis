@@ -1,5 +1,7 @@
 package de.ingoreschke.redis;
 
+import java.util.List;
+
 
 public class Redis implements IRedis {
 	IRedisString redisString;
@@ -16,7 +18,11 @@ public class Redis implements IRedis {
 		return redisString.set(key, value);
 	}
 
-	public Integer incr(String key) {
+	public int incr(String key) {
 		return redisString.incr(key);
+	}
+
+	public List<String> mGet(String keys) {
+		return redisString.mGet(keys);
 	}
 }
