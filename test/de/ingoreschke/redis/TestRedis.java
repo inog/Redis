@@ -108,7 +108,7 @@ public class TestRedis {
 		redis.set("key1", "value1");
 		redis.set("key2", "value2");
 		redis.set("key3", "value3");
-		Assert.assertEquals(3, redis.mGet("key1 key2 key3").size());
+		Assert.assertEquals(3, redis.mGet("key1", "key2", "key3").size());
 	}
 	
 	@Test
@@ -116,6 +116,6 @@ public class TestRedis {
 		redis.set("key 1", "value1");
 		redis.set("key 2", "value2");
 		redis.set("key 3", "value3");
-		Assert.assertEquals(3, redis.mGet("key 1 key 2 key 3").size());
+		Assert.assertEquals(3, redis.mGet("key 1", "key 2", "key 3").size());
 	}
 }

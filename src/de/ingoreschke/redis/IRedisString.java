@@ -11,5 +11,6 @@ public interface IRedisString {
 	 * @param keys space separated list of keys (i.e. "key1 key2 key3") 
 	 * @return List
 	 */
-	public List<String> mGet (String keys);
+	public List<String> mGet (String ... keys);
+	
 }

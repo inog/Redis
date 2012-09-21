@@ -22,7 +22,7 @@ public class Redis implements IRedis {
 		return redisString.incr(key);
 	}
 
-	public List<String> mGet(String keys) {
+	public List<String> mGet(String... keys) {
 		return redisString.mGet(keys);
 	}
 }

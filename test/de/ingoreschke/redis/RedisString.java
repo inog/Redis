@@ -35,11 +35,10 @@ private HashMap<String, String> store;
 	}
 
 	@Override
-	public List<String> mGet(String keys) {
-		String[] keyarray = keys.split(" ");
+	public List<String> mGet(String ... keys) {
 		List <String> returnList = new LinkedList<String>();
 		
-		for (String key : keyarray) {
+		for (String key : keys) {
 			String val = store.get(key);
 			returnList.add(val);
 		}
