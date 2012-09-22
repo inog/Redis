@@ -47,14 +47,6 @@ public class TestRedis {
 	}
 	
 	
-	@Test 
-	public void testSet_Object(){
-		String key = "testkey";
-		Object objIn = new Object(); 
-		String expected = objIn.toString();
-		redis.set(key, objIn);
-		Assert.assertEquals(expected, redis.get(key));
-	}
 
 	@Test
 	public void testSet_DuplicateKeys(){
@@ -76,7 +68,7 @@ public class TestRedis {
 	public void testIncr_valueValid(){
 		int in = 5;
 		String key = "count";
-		redis.set(key, in);
+		redis.set(key, String.valueOf(in));
 		int expected = Integer.valueOf(++in);
 		Assert.assertEquals(expected, redis.incr(key));
 	}
@@ -124,7 +116,7 @@ public class TestRedis {
 	@Test
 	public void testMSet_returningString(){
 		String expected = "OK";
-		Map<String, Object> m = createExampleMap();
+		Map<String, String> m = createExampleMap();
 		Assert.assertEquals(expected, redis.mSet(m));
 	}
 	
@@ -136,20 +128,10 @@ public class TestRedis {
 		Assert.assertEquals(expected, redis.get("key3"));
 	}
 	
-	@Test
-	public void testMSet_Object(){
-		Object o = new Object();
-		String expected = o.toString();
-		Map<String, Object> m = createExampleMap();
-		m.put("myObj", o);
-		redis.mSet(m);
-		Assert.assertEquals(expected, redis.get("myObj"));
-	}
-	
-	
+		
 	/* Helper functions */
-	private Map<String, Object> createExampleMap(){
-		Map<String, Object> m = new HashMap<String, Object>();
+	private Map<String, String> createExampleMap(){
+		Map<String, String> m = new HashMap<>();
 		m.put("key1", "value1");
 		m.put("key2", "value2");
 		m.put("key3", "value3");

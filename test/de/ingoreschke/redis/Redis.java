@@ -15,7 +15,7 @@ public class Redis implements IRedis {
 		return redisString.get(key);
 	}
 
-	public String set(String key, Object value) {
+	public String set(String key, String value) {
 		return redisString.set(key, value);
 	}
 
@@ -27,7 +27,7 @@ public class Redis implements IRedis {
 		return redisString.mGet(keys);
 	}
 
-	public String mSet(Map<String, Object> map) {
+	public String mSet(Map<String, String> map) {
 		return redisString.mSet(map);
 	}
 

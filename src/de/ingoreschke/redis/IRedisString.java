@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface IRedisString {
 	public String get(String key);
-	public String set(String key, Object value);
+	public String set(String key, String value);
 	public int incr(String key);
 	/**
 	 * Get a List with all values of given keys
@@ -13,6 +13,6 @@ public interface IRedisString {
 	 * @return List
 	 */
 	public List<String> mGet (String ... keys);
-	public String mSet(Map<String, Object> map);
+	public String mSet(Map<String, String> map);
 	
 }

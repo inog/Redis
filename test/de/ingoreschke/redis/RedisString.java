@@ -10,7 +10,7 @@ public class RedisString implements IRedisString {
 private HashMap<String, String> store;
 	
 	public RedisString() {
-		store = new HashMap<String, String>();
+		store = new HashMap<>();
 	}
 	
 	@Override
@@ -19,8 +19,8 @@ private HashMap<String, String> store;
 	}
 	
 	@Override
-	public String set(String key, Object value) {
-		store.put(key, value.toString());
+	public String set(String key, String value) {
+		store.put(key, value);
 		return "OK";
 	}
 
@@ -37,7 +37,7 @@ private HashMap<String, String> store;
 
 	@Override
 	public List<String> mGet(String ... keys) {
-		List <String> returnList = new LinkedList<String>();
+		List <String> returnList = new LinkedList<>();
 		
 		for (String key : keys) {
 			String val = store.get(key);
@@ -47,8 +47,8 @@ private HashMap<String, String> store;
 	}
 
 	@Override
-	public String mSet(Map<String, Object> map) {
-		for(Map.Entry<String, Object> entry : map.entrySet()){
+	public String mSet(Map<String, String> map) {
+		for(Map.Entry<String, String> entry : map.entrySet()){
 			set(entry.getKey(), entry.getValue());
 		}
 		return "OK";
