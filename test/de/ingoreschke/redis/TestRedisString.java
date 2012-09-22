@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestRedis {
+public class TestRedisString {
 	private IRedis redis;
 	
 	@Before	
@@ -45,7 +45,6 @@ public class TestRedis {
 		redis.set(key, expected);
 		Assert.assertEquals(expected, redis.get(key));
 	}
-	
 	
 
 	@Test

@@ -6,9 +6,11 @@ import java.util.Map;
 
 public class Redis implements IRedis {
 	IRedisString redisString;
+	IRedisHash redisHash;
 
 	public Redis(){
 		redisString = new RedisString();
+		redisHash = new RedisHash();
 	}
 	
 	public String get(String key) {
@@ -31,4 +33,11 @@ public class Redis implements IRedis {
 		return redisString.mSet(map);
 	}
 
+	public String hGet(String key, String field) {
+		return redisHash.hGet(key, field);
+	}
+	
+	public String hSet(String key, String field, String value) {
+		return redisHash.hSet(key, field, value);
+	}
 }
