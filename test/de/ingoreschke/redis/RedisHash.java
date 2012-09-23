@@ -9,9 +9,9 @@ public class RedisHash implements IRedisHash {
 	}
 
 	@Override
-	public String hSet(String key, String field, String value) {
+	public int hSet(String key, String field, String value) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 }

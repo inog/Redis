@@ -37,7 +37,7 @@ public class Redis implements IRedis {
 		return redisHash.hGet(key, field);
 	}
 	
-	public String hSet(String key, String field, String value) {
+	public int hSet(String key, String field, String value) {
 		return redisHash.hSet(key, field, value);
 	}
 }

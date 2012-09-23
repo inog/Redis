@@ -34,4 +34,13 @@ public class TestRedisHash {
 		Assert.assertEquals(expected, redis.hGet(key, field));
 	}
 	
+	@Test
+	public void testHSet(){
+		String key = "key1";
+		String field = "field1";
+		Assert.assertEquals(1, redis.hSet(key, field, "something"));
+		Assert.assertEquals(0, redis.hSet(key, field, "something other stuff"));
+	}
+	
+	
 }
