@@ -12,8 +12,13 @@ public class RedisHash implements IRedisHash {
 	
 	@Override
 	public String hGet(String key, String field) {
-		// TODO Auto-generated method stub
-		return null;
+		Map <String, String> hash;
+		if (store.containsKey(key)){
+			hash = store.get(key);
+			return hash.get(field);
+		}else {
+			return null;
+		}
 	}
 
 	@Override
