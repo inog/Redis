@@ -42,5 +42,15 @@ public class TestRedisHash {
 		Assert.assertEquals(0, redis.hSet(key, field, "something other stuff"));
 	}
 	
+	@Test
+	public void testHSet_FieldExist(){
+		String key = "key1";
+		String field = "field1";
+		String value1 = "value1";
+		String value2 = "my crazy value 2";
+		redis.hSet(key, field, value1);
+		Assert.assertEquals(0, redis.hSet(key, field, value2));	
+		Assert.assertEquals(value2, redis.hGet(key, field));
+	}
 	
 }

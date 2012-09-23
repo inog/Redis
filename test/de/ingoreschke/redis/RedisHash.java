@@ -1,7 +1,15 @@
 package de.ingoreschke.redis;
 
-public class RedisHash implements IRedisHash {
+import java.util.HashMap;
+import java.util.Map;
 
+public class RedisHash implements IRedisHash {
+	private Map<String, Map<String, String>> store;
+	
+	public RedisHash(){
+		store = new HashMap<>();
+	}
+	
 	@Override
 	public String hGet(String key, String field) {
 		// TODO Auto-generated method stub
@@ -10,8 +18,22 @@ public class RedisHash implements IRedisHash {
 
 	@Override
 	public int hSet(String key, String field, String value) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, String> hash;
+		if(!store.containsKey(key)){
+			hash = new HashMap<>();
+			hash.put(field, value);
+			store.put(key, hash);
+			return 1;
+		} else{
+			hash = store.get(key);
+			if (hash.containsKey(field)){
+				hash.remove(field);
+				hash.put(field, value);
+				return 0;
+			}else{
+				hash.put(field, value);
+				return 1;
+			}
+		}
 	}
-
 }
