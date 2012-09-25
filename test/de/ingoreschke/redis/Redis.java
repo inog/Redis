@@ -41,9 +41,9 @@ public class Redis implements IRedis {
 		return redisHash.hSet(key, field, value);
 	}
 
-	@Override
-	public List<String> hMGet(String key, String... field) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> hMGet(String key, String... fields) {
+		return redisHash.hMGet(key, fields);
 	}
+
+
 }

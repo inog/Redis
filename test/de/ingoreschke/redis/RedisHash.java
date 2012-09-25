@@ -47,8 +47,11 @@ public class RedisHash implements IRedisHash {
 	@Override
 	public List<String> hMGet(String key, String... fields) {
 		List <String> returnList = new LinkedList<>();
-		Map <String, String> hash = store.get(key);
-			
+		Map <String, String> hash = null;
+		if (store.containsKey(key)){
+			hash = store.get(key);
+		}
+		
 		for (String field : fields){
 			if (hash != null){
 				returnList.add(hash.get(field));
