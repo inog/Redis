@@ -1,17 +1,32 @@
 package de.ingoreschke.redis;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class TestRedisHash {
+	
+	private static final String KEY = "mykey";
+	private static final String FIELD1 = "field1";
+	private static final String FIELD2 = "field2";
+	private static final String FIELD3 = "field3";
+	private static final String VALUE1 = "value1";
+	private static final String VALUE2 = "value2";
+	private static final String VALUE3 = "value3";
+	
 	private IRedis redis;
 		
 	@Before	
 	public void setUp(){
 		redis = new Redis();
+		redis.hSet(KEY, FIELD1, VALUE1);
+		redis.hSet(KEY, FIELD2, VALUE2);
+		redis.hSet(KEY, FIELD3, VALUE3);
 	}
+	
 	
 	@Test
 	public void testHGet_KeyDontExists(){
@@ -44,13 +59,34 @@ public class TestRedisHash {
 	
 	@Test
 	public void testHSet_FieldExist(){
-		String key = "key1";
-		String field = "field1";
-		String value1 = "value1";
-		String value2 = "my crazy value 2";
-		redis.hSet(key, field, value1);
-		Assert.assertEquals(0, redis.hSet(key, field, value2));	
-		Assert.assertEquals(value2, redis.hGet(key, field));
+		String myCrazyValue = "my crazy value 2";
+		Assert.assertEquals(0, redis.hSet(KEY, FIELD1, myCrazyValue));	
+		Assert.assertEquals(myCrazyValue, redis.hGet(KEY, FIELD1));
+	}
+	
+	@Test
+	public void testHMGet(){
+		List<String> list = redis.hMGet(KEY, FIELD1, FIELD2, FIELD3);
+		Assert.assertEquals(3, list.size());
+		Assert.assertEquals(VALUE1, list.get(0));
+		Assert.assertEquals(VALUE2, list.get(1));
+		Assert.assertEquals(VALUE3, list.get(2));
+	}
+	
+	@Test
+	public void testHMGet_FieldDontExist(){
+		List<String> list = redis.hMGet(KEY, FIELD1, FIELD2, FIELD3, "doNotExist");
+		Assert.assertEquals(null, list.get(3));
+	}
+	
+	@Test
+	public void testHMGet_KeyDontExist(){
+		List <String> list = redis.hMGet("keyThatdoNotExist", FIELD1,FIELD2,FIELD3,"someOtherField");
+		Assert.assertEquals(4, list.size());
+		Assert.assertEquals(null, list.get(0));
+		Assert.assertEquals(null, list.get(1));
+		Assert.assertEquals(null, list.get(2));
+		Assert.assertEquals(null, list.get(3));
 	}
 	
 }

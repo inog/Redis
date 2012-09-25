@@ -1,6 +1,8 @@
 package de.ingoreschke.redis;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class RedisHash implements IRedisHash {
@@ -40,5 +42,20 @@ public class RedisHash implements IRedisHash {
 				return 1;
 			}
 		}
+	}
+
+	@Override
+	public List<String> hMGet(String key, String... fields) {
+		List <String> returnList = new LinkedList<>();
+		Map <String, String> hash = store.get(key);
+			
+		for (String field : fields){
+			if (hash != null){
+				returnList.add(hash.get(field));
+			}else{
+				returnList.add(null);
+			}
+		}
+		return returnList;
 	}
 }
