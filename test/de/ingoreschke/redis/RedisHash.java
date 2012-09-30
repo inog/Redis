@@ -25,20 +25,18 @@ public class RedisHash implements IRedisHash {
 
 	@Override
 	public int hSet(String key, String field, String value) {
-		Map<String, String> hash;
+		Map<String, String> entry;
 		if(!store.containsKey(key)){
-			hash = new HashMap<>();
-			hash.put(field, value);
-			store.put(key, hash);
+			entry = new HashMap<>();
+			entry.put(field, value);
+			store.put(key, entry);
 			return 1;
 		} else{
-			hash = store.get(key);
-			if (hash.containsKey(field)){
-				hash.remove(field);
-				hash.put(field, value);
+			entry = store.get(key);
+			String oldvalue = entry.put(field, value);
+			if (oldvalue != null){
 				return 0;
 			}else{
-				hash.put(field, value);
 				return 1;
 			}
 		}
@@ -47,14 +45,14 @@ public class RedisHash implements IRedisHash {
 	@Override
 	public List<String> hMGet(String key, String... fields) {
 		List <String> returnList = new LinkedList<>();
-		Map <String, String> hash = null;
+		Map <String, String> entry = null;
 		if (store.containsKey(key)){
-			hash = store.get(key);
+			entry = store.get(key);
 		}
 		
 		for (String field : fields){
-			if (hash != null){
-				returnList.add(hash.get(field));
+			if (entry != null){
+				returnList.add(entry.get(field));
 			}else{
 				returnList.add(null);
 			}
