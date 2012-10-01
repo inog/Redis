@@ -1,6 +1,7 @@
 package de.ingoreschke.redis;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IRedisHash {
 	public String hGet(String key, String field);
@@ -22,4 +23,11 @@ public interface IRedisHash {
 	 * @return
 	 */
 	public List<String> hMGet(String key, String...fields);
+	/**
+	 * Set multiple hash fields to multiple values
+	 * @param key : hold the hashes
+	 * @param map : field-value pairs
+	 * @return 
+	 */
+	public String hMSet(String key, Map<String, String> map);
 }

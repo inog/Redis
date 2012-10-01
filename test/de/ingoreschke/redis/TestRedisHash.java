@@ -1,6 +1,8 @@
 package de.ingoreschke.redis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -89,4 +91,23 @@ public class TestRedisHash {
 		Assert.assertEquals(null, list.get(3));
 	}
 	
+	@Test
+	public void testHMSet_KeyDontExist(){
+		String key = "myKeyThatDoNotExistsbefore";
+		Map<String, String> fields = new HashMap<>();
+		fields.put(FIELD1, VALUE1);
+		fields.put(FIELD2, VALUE2);
+		fields.put(FIELD3, VALUE3);
+		Assert.assertEquals("OK",redis.hMSet(key, fields));
+		Assert.assertEquals(VALUE2, redis.hGet(key, FIELD2));
+	}
+	
+	@Test
+	public void testHMSet_KeyExist(){
+		String newVal2 = "myNewVal2";
+		Map<String, String> fields = new HashMap<>();
+		fields.put(FIELD2, newVal2); 
+		Assert.assertEquals("OK",redis.hMSet(KEY, fields)); //should overwrite field2
+		Assert.assertEquals(newVal2, redis.hGet(KEY, FIELD2));
+	}
 }

@@ -59,4 +59,10 @@ public class RedisHash implements IRedisHash {
 		}
 		return returnList;
 	}
+
+	@Override
+	public String hMSet(String key, Map<String, String> map) {
+		store.put(key, map);
+		return "OK";
+	}
 }

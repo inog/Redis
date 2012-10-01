@@ -5,6 +5,8 @@ import java.util.Map;
 
 
 public class Redis implements IRedis {
+	
+
 	IRedisString redisString;
 	IRedisHash redisHash;
 
@@ -45,5 +47,7 @@ public class Redis implements IRedis {
 		return redisHash.hMGet(key, fields);
 	}
 
-
+	public String hMSet(String key, Map<String, String> map) {
+		return redisHash.hMSet(key, map);
+	}
 }
