@@ -110,4 +110,20 @@ public class TestRedisHash {
 		Assert.assertEquals("OK",redis.hMSet(KEY, fields)); //should overwrite field2
 		Assert.assertEquals(newVal2, redis.hGet(KEY, FIELD2));
 	}
+	
+	@Test
+	public void testHKeys_KeyExists(){
+		int expected = 3;
+		List<String> fields = redis.hKeys(KEY);
+		Assert.assertEquals(expected, fields.size());
+		Assert.assertEquals(true, fields.contains(FIELD1));
+		Assert.assertEquals(true, fields.contains(FIELD2));
+		Assert.assertEquals(true, fields.contains(FIELD3));
+	}
+	
+	@Test
+	public void testHKeys_KeyDontExists(){
+		int expected = 0;
+		Assert.assertEquals(expected, redis.hKeys("someNoneExistingKey").size());
+	}
 }

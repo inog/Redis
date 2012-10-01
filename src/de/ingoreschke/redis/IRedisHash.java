@@ -23,6 +23,7 @@ public interface IRedisHash {
 	 * @return
 	 */
 	public List<String> hMGet(String key, String...fields);
+	
 	/**
 	 * Set multiple hash fields to multiple values
 	 * @param key : hold the hashes
@@ -30,4 +31,11 @@ public interface IRedisHash {
 	 * @return 
 	 */
 	public String hMSet(String key, Map<String, String> map);
+	
+	/**
+	 *Returns all field names in the hash stored at key
+	 * @param key
+	 * @return
+	 */
+	public List<String> hKeys (String key);
 }

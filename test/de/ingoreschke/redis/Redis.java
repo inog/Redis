@@ -50,4 +50,10 @@ public class Redis implements IRedis {
 	public String hMSet(String key, Map<String, String> map) {
 		return redisHash.hMSet(key, map);
 	}
+
+	public List<String> hKeys(String key) {
+		return redisHash.hKeys(key);
+	}
+	
+	
 }

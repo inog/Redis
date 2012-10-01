@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class RedisHash implements IRedisHash {
 	private Map<String, Map<String, String>> store;
@@ -65,4 +66,20 @@ public class RedisHash implements IRedisHash {
 		store.put(key, map);
 		return "OK";
 	}
+
+	@Override
+	public List<String> hKeys(String key) {
+		List<String> returnList;
+		if (store.containsKey(key)){
+			Map<String, String> entries = store.get(key);
+			Set<String>keys = entries.keySet();
+			returnList = new LinkedList<>(keys);
+		}else{
+			returnList = new LinkedList<>();
+		}
+		
+		return returnList;
+	}
+	
+	
 }
