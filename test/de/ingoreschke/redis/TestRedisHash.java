@@ -9,6 +9,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.ingoreschke.redis.mocks.Redis;
+
 public class TestRedisHash {
 	
 	private static final String KEY = "mykey";

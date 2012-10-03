@@ -1,7 +1,11 @@
-package de.ingoreschke.redis;
+package de.ingoreschke.redis.mocks;
 
 import java.util.List;
 import java.util.Map;
+
+import de.ingoreschke.redis.IRedis;
+import de.ingoreschke.redis.IRedisHash;
+import de.ingoreschke.redis.IRedisString;
 
 
 public class Redis implements IRedis {

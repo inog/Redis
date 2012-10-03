@@ -1,9 +1,11 @@
-package de.ingoreschke.redis;
+package de.ingoreschke.redis.mocks;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import de.ingoreschke.redis.IRedisString;
 
 public class RedisString implements IRedisString {
 	

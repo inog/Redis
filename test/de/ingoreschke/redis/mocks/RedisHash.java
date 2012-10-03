@@ -1,10 +1,12 @@
-package de.ingoreschke.redis;
+package de.ingoreschke.redis.mocks;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import de.ingoreschke.redis.IRedisHash;
 
 public class RedisHash implements IRedisHash {
 	private Map<String, Map<String, String>> store;

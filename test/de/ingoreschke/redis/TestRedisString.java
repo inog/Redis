@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.ingoreschke.redis.mocks.Redis;
+
 public class TestRedisString {
 	private IRedis redis;
 	
