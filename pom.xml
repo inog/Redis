@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.ingoreschke</groupId>
-	<artifactId>RedisDesign</artifactId>
+	<artifactId>Redis</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>RedisDesign</name>
+	<name>Redis</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
