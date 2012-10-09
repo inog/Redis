@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.ingoreschke.redis.IRedis;
-import de.ingoreschke.redis.IRedisHash;
-import de.ingoreschke.redis.IRedisString;
+import de.ingoreschke.redis.internal.IRedisHash;
+import de.ingoreschke.redis.internal.IRedisString;
 
 
 public class Redis implements IRedis {

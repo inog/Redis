@@ -1,4 +1,4 @@
-package de.ingoreschke.redis;
+package de.ingoreschke.redis.internal;
 
 import java.util.List;
 import java.util.Map;

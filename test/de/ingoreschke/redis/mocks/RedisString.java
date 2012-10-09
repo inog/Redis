@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.ingoreschke.redis.IRedisString;
+import de.ingoreschke.redis.internal.IRedisString;
 
 public class RedisString implements IRedisString {
 	

@@ -13,7 +13,7 @@ import org.junit.Test;
 import de.ingoreschke.redis.mocks.Redis;
 
 public class TestRedisString {
-	private IRedis redis;
+	protected IRedis redis;
 	
 	@Before	
 	public void setUp(){

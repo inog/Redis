@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.ingoreschke.redis.IRedisHash;
+import de.ingoreschke.redis.internal.IRedisHash;
 
 public class RedisHash implements IRedisHash {
 	private Map<String, Map<String, String>> store;
