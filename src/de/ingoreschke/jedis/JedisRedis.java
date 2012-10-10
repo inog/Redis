@@ -30,8 +30,13 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public int incr(String key) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		long l =  jedis.incr(key);
+		if (l > Integer.MAX_VALUE){
+			throw new IllegalArgumentException(l + "canot cast to int, it is to big.");
+		}
+		int retval = (int) l;
+		return retval;
 	}
 
 	@Override
