@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisDataException;
 
 import de.ingoreschke.redis.IRedis;
 
@@ -30,10 +31,14 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public int incr(String key) {
-		
-		long l =  jedis.incr(key);
-		if (l > Integer.MAX_VALUE){
-			throw new IllegalArgumentException(l + "canot cast to int, it is to big.");
+		long l = 0;
+		try{
+			l =  jedis.incr(key);			
+		}catch (JedisDataException e){
+			throw new IllegalArgumentException(e.getMessage());
+		}
+		if (l > Integer.MAX_VALUE || l < Integer.MIN_VALUE){
+			throw new IllegalArgumentException(l + "cannot cast to int, it is to big.");
 		}
 		int retval = (int) l;
 		return retval;
