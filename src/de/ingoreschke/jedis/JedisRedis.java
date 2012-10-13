@@ -31,14 +31,18 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public long incr(String key) {
-		long retval =  jedis.incr(key);			
-		return retval;
+		try{
+			long retval =  jedis.incr(key);						
+			return retval;
+		}catch(JedisDataException e){
+			throw new IllegalArgumentException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<String> mGet(String... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> list = jedis.mget(keys);
+		return list;
 	}
 
 	@Override

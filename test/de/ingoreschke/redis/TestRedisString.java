@@ -85,7 +85,7 @@ public class TestRedisString {
 	@Test (expected = IllegalArgumentException.class)
 	public void testIncr_valueToBig(){
 		String key = "count";
-		long l =  (long) Long.MAX_VALUE;
+		long l =  Long.MAX_VALUE;
 		String value = String.valueOf(l);
 		redis.set(key, value);
 		redis.incr(key);//this should throw an exception.
@@ -94,7 +94,7 @@ public class TestRedisString {
 	@Test (expected = IllegalArgumentException.class)
 	public void testIncr_valueToSmall(){
 		String key = "count";
-		long l =  (long) Long.MIN_VALUE -2;
+		long l =  Long.MIN_VALUE -2;
 		String value = String.valueOf(l);
 		redis.set(key, value);
 		redis.incr(key);//this should throw an exception.
