@@ -6,7 +6,7 @@ import java.util.Map;
 public interface IRedisString {
 	public String get(String key);
 	public String set(String key, String value);
-	public int incr(String key);
+	public long incr(String key);
 	/**
 	 * Get a List with all values of given keys
 	 * @param keys comma separated list of keystrings (i.e. "key1", "key2", "key3") 

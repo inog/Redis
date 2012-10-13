@@ -27,7 +27,7 @@ public class Redis implements IRedis {
 		return redisString.set(key, value);
 	}
 
-	public int incr(String key) {
+	public long incr(String key) {
 		return redisString.incr(key);
 	}
 

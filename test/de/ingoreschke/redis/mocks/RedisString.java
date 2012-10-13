@@ -27,7 +27,7 @@ private HashMap<String, String> store;
 	}
 
 	@Override
-	public int incr(String key) {
+	public long incr(String key) {
 		if(!store.containsKey(key)){
 			store.put(key, "0");	
 		}
