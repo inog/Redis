@@ -61,7 +61,7 @@ public class TestRedisString {
 	@Test
 	public void testIncr_keyDontExists(){
 		Object result = redis.incr("test");
-		Integer expected = 1;
+		long expected = 1;
 		Assert.assertEquals(expected, result);
 	}
 	

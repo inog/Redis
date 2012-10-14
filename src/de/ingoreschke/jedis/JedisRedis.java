@@ -81,4 +81,9 @@ public class JedisRedis implements IRedis {
 		return null;
 	}
 
+	public String flushDB() {
+		return jedis.flushDB();
+	}
+	
+
 }
