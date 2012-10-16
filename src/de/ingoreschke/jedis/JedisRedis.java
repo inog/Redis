@@ -47,8 +47,18 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public String mSet(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] str = new String[map.size()*2];
+		int i = 0;
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			str[i] = key;
+			i++;
+			str[i] = value;
+			i++;
+		}
+		String retval = jedis.mset(str);
+		return retval;
 	}
 
 	@Override

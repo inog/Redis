@@ -10,7 +10,7 @@ public class TestJedisString extends TestRedisString {
 	@Before
 	public void setUp() {
 		redis = new JedisRedis();
-		((JedisRedis)redis).flushDB();
+		JedisRedis j = (JedisRedis) redis;
+		j.flushDB();
 	}
-	
 }
