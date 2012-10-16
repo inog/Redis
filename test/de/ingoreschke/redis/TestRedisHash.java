@@ -21,7 +21,7 @@ public class TestRedisHash {
 	private static final String VALUE2 = "value2";
 	private static final String VALUE3 = "value3";
 	
-	private IRedis redis;
+	protected IRedis redis;
 		
 	@Before	
 	public void setUp(){

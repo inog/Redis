@@ -63,14 +63,15 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public String hGet(String key, String field) {
-		// TODO Auto-generated method stub
-		return null;
+		String retval = jedis.hget(key, field);
+		return retval;
 	}
 
 	@Override
 	public int hSet(String key, String field, String value) {
-		// TODO Auto-generated method stub
-		return 0;
+		Long l = jedis.hset(key, field, value);
+		int retval = l.intValue();
+		return retval;
 	}
 
 	@Override
