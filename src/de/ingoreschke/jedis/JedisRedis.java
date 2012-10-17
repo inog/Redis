@@ -50,12 +50,8 @@ public class JedisRedis implements IRedis {
 		String[] str = new String[map.size()*2];
 		int i = 0;
 		for (Map.Entry<String, String> entry : map.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
-			str[i] = key;
-			i++;
-			str[i] = value;
-			i++;
+			str[i++] = entry.getKey();
+			str[i++] = entry.getValue();
 		}
 		String retval = jedis.mset(str);
 		return retval;
@@ -76,14 +72,14 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public List<String> hMGet(String key, String... fields) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> list = jedis.hmget(key, fields);
+		return list;
 	}
 
 	@Override
 	public String hMSet(String key, Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		String retval = jedis.hmset(key, map);
+		return retval;
 	}
 
 	@Override
