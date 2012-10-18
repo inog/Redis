@@ -25,10 +25,7 @@ public class TestRedisHash {
 		
 	@Before	
 	public void setUp(){
-		redis = new Redis();
-		redis.hSet(KEY, FIELD1, VALUE1);
-		redis.hSet(KEY, FIELD2, VALUE2);
-		redis.hSet(KEY, FIELD3, VALUE3);
+		redis = new Redis();	
 	}
 	
 	
@@ -64,12 +61,15 @@ public class TestRedisHash {
 	@Test
 	public void testHSet_FieldExist(){
 		String myCrazyValue = "my crazy value 2";
-		Assert.assertEquals(0, redis.hSet(KEY, FIELD1, myCrazyValue));	
+		redis.hSet(KEY, FIELD1,VALUE1);
+		int i = redis.hSet(KEY, FIELD1, myCrazyValue);
+		Assert.assertEquals(0, i);	
 		Assert.assertEquals(myCrazyValue, redis.hGet(KEY, FIELD1));
 	}
 	
 	@Test
 	public void testHMGet(){
+		fill();
 		List<String> list = redis.hMGet(KEY, FIELD1, FIELD2, FIELD3);
 		Assert.assertEquals(3, list.size());
 		Assert.assertEquals(VALUE1, list.get(0));
@@ -115,6 +115,7 @@ public class TestRedisHash {
 	
 	@Test
 	public void testHKeys_KeyExists(){
+		fill();
 		int expected = 3;
 		List<String> fields = redis.hKeys(KEY);
 		Assert.assertEquals(expected, fields.size());
@@ -127,5 +128,11 @@ public class TestRedisHash {
 	public void testHKeys_KeyDontExists(){
 		int expected = 0;
 		Assert.assertEquals(expected, redis.hKeys("someNoneExistingKey").size());
+	}
+	
+	private void fill(){
+		redis.hSet(KEY, FIELD1, VALUE1);
+		redis.hSet(KEY, FIELD2, VALUE2);
+		redis.hSet(KEY, FIELD3, VALUE3);
 	}
 }
