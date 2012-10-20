@@ -1,7 +1,9 @@
 package de.ingoreschke.jedis;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisDataException;
@@ -84,8 +86,12 @@ public class JedisRedis implements IRedis {
 
 	@Override
 	public List<String> hKeys(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> keysSet = jedis.hkeys(key);
+		List<String> retList = new ArrayList<>();
+		for (String str : keysSet) {
+			retList.add(str);
+		}
+		return retList;
 	}
 
 	public String flushDB() {
