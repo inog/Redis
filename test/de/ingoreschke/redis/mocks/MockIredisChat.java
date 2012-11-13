@@ -1,29 +1,37 @@
 package de.ingoreschke.redis.mocks;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.ingoreschke.redis.internal.IChatListener;
 import de.ingoreschke.redis.internal.IRedisChat;
 
 public class MockIredisChat implements IRedisChat {
 	
 	
-	private IChatListener listener;
+	private final Set<IChatListener> listeners;
 	private String message;
-
-	public String getMessage() {
-		return message;
+	
+	public MockIredisChat(){
+		listeners = new HashSet<>();
 	}
 
+
 	@Override
-	public Integer publish(String channel, String message) {
-		listener.onMessage(channel, message);
+	public int publish(String channel, String message) {
+		int count = 0;
+		for (IChatListener listener : listeners) {
+			listener.onMessage(channel, message);
+			count++;
+		}
 		this.message = message;
-		return null;
+		return count;
 	}
 
 	@Override
 	public boolean subscribe(IChatListener listener, String... channel) {
-		this.listener = listener;
-		return true;
+		boolean isAdded = listeners.add(listener);
+		return isAdded;
 	}
 
 	@Override
@@ -32,4 +40,7 @@ public class MockIredisChat implements IRedisChat {
 		return false;
 	}
 
+	public String getMessage() {
+		return message;
+	}
 }
