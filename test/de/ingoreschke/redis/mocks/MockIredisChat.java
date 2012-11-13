@@ -10,7 +10,7 @@ public class MockIredisChat implements IRedisChat {
 	
 	
 	private final Set<IChatListener> listeners;
-	private String message;
+
 	
 	public MockIredisChat(){
 		listeners = new HashSet<>();
@@ -24,7 +24,6 @@ public class MockIredisChat implements IRedisChat {
 			listener.onMessage(channel, message);
 			count++;
 		}
-		this.message = message;
 		return count;
 	}
 
@@ -40,7 +39,4 @@ public class MockIredisChat implements IRedisChat {
 		return false;
 	}
 
-	public String getMessage() {
-		return message;
-	}
 }
