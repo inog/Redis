@@ -11,7 +11,7 @@ public class TestJedis {
 		Jedis jedis = new Jedis("localhost");
 	    jedis.connect();
 	    jedis.set("foo", "bar");
-	    String value = jedis.get("foo");
+	    jedis.get("foo");
 	}
 
 }
