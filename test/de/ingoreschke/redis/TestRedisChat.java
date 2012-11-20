@@ -17,7 +17,7 @@ public class TestRedisChat {
 
 	@Before
 	public void setUp(){
-		cut = new MockIredisChat("TDD");
+		cut = new MockIredisChat();
 	}
 
 	@Test
@@ -63,4 +63,5 @@ public class TestRedisChat {
 		cut.publish("otherChannel", msg);
 		assertFalse(msg.equals(cl.getMessage()));
 	}
+
 }
