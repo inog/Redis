@@ -64,4 +64,15 @@ public class TestRedisChat {
 		assertFalse(msg.equals(cl.getMessage()));
 	}
 
+	@Test
+	public void testUnsubscribe(){
+		MockChatClient cl = new MockChatClient("cl");
+		String channel = "test";
+		String msg = "some Message";
+		cut.subscribe(cl, channel);
+		cut.publish(channel, msg);
+		assertEquals(msg, cl.getMessage());
+		cut.unsubscribe(cl, channel);
+		assertFalse(msg.equals(cl.getMessage()));
+	}
 }
