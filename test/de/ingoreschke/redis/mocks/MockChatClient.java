@@ -11,7 +11,7 @@ public class MockChatClient implements IChatListener {
 	}
 
 	@Override
-	public void onMessage(final String message) {
+	public void onMessage(final String channel, final String message) {
 		System.out.println(name + " received a message : " + message);
 		this.message = message;
 	}

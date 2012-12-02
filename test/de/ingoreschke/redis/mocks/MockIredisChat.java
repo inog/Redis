@@ -24,7 +24,7 @@ public class MockIredisChat implements IRedisChat {
 	public int publish(final String channel, final String message) {
 		int count = 0;
 		for (IChatListener listener : chatClients) {
-			listener.onMessage( message);
+			listener.onMessage( channel, message);
 			count++;
 		}
 		return count;
