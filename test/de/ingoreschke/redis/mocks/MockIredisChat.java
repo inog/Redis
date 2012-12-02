@@ -41,8 +41,7 @@ public class MockIredisChat implements IRedisChat {
 
 	@Override
 	public boolean unsubscribe(final IChatListener chatClient, final String... channel) {
-		// TODO Auto-generated method stub
-		return false;
+		return chatClients.remove(chatClient);
 	}
 
 
