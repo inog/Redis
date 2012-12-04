@@ -22,10 +22,11 @@ public class TestRedisChat {
 
 	@Test
 	public void testPublish(){
-		String expected = "Message from testPublish";
 		MockChatClient client1 = new MockChatClient("client 1");
-		cut.subscribe(client1, "dsf");
-		cut.publish("dsfs", expected);
+		String channel = "sport";
+		cut.subscribe(client1, channel);
+		String expected = "Message from testPublish";
+		cut.publish(channel, expected);
 		String actual = client1.getMessage();
 		assertEquals(expected, actual);
 	}
@@ -33,13 +34,14 @@ public class TestRedisChat {
 	@Test
 	public void testMultipleClients(){
 		String expected = "Message to more than 1 Client";
+		String channel = "Sport";
 		MockChatClient cl1 = new MockChatClient("cl1");
 		MockChatClient cl2 = new MockChatClient("cl2");
 		MockChatClient cl3 = new MockChatClient("cl3");
-		cut.subscribe(cl1, "");
-		cut.subscribe(cl2, "");
-		cut.subscribe(cl3, "");
-		cut.publish("somechanel", expected);
+		cut.subscribe(cl1, channel);
+		cut.subscribe(cl2, channel);
+		cut.subscribe(cl3, channel);
+		cut.publish(channel, expected);
 		assertEquals("cl1 : ",expected,cl1.getMessage());
 		assertEquals("cl2 : ",expected,cl2.getMessage());
 		assertEquals("cl3 : ",expected,cl3.getMessage());

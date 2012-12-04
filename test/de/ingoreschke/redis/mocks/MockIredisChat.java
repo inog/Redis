@@ -1,8 +1,9 @@
 package de.ingoreschke.redis.mocks;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import de.ingoreschke.redis.internal.IChatListener;
@@ -10,48 +11,54 @@ import de.ingoreschke.redis.internal.IRedisChat;
 
 public class MockIredisChat implements IRedisChat {
 
-	private Set<IChatListener> chatClients;
-	private Set<String> channels;
+	private Map<String, Set<IChatListener>> chatmap;
 
 
 	public MockIredisChat(){
-		chatClients = new HashSet<>();
-		channels = new HashSet<>();
+		chatmap = new HashMap<>();
 	}
 
 
 	@Override
 	public int publish(final String channel, final String message) {
 		int count = 0;
-		for (IChatListener listener : chatClients) {
-			listener.onMessage( channel, message);
-			count++;
+		Set<IChatListener> chatClients = chatmap.get(channel);
+		if (chatClients != null){
+			for (IChatListener listener : chatClients) {
+				listener.onMessage( channel, message);
+				count++;
+			}
 		}
 		return count;
 	}
 
 	@Override
 	public boolean subscribe(final IChatListener chatClient, final String... channel) {
-		for (String ch : channel) {
-			channels.add(ch);
+
+		for (String currentChannel : channel) {
+			if(chatmap.containsKey(currentChannel)){
+				Set<IChatListener> clients = chatmap.get(currentChannel);
+				clients.add(chatClient);
+			}else{
+				Set<IChatListener> newClientSet = new HashSet<>();
+				newClientSet.add(chatClient);
+				chatmap.put(currentChannel, newClientSet);
+			}
 		}
-		boolean isAdded = chatClients.add(chatClient);
-		return isAdded;
+		return true;
 	}
 
 	@Override
 	public boolean unsubscribe(final IChatListener chatClient, final String... channel) {
-		return chatClients.remove(chatClient);
+		//return chatClients.remove(chatClient);
+		return false;
 	}
 
 
 	@Override
 	public List<String> channelList() {
-		List<String> returnList = new ArrayList<>();
-		for (String channel : channels) {
-			returnList.add(channel);
-		}
-		return returnList;
+
+		return null;
 	}
 
 }
