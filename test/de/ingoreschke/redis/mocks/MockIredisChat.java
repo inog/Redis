@@ -1,5 +1,6 @@
 package de.ingoreschke.redis.mocks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,15 +51,23 @@ public class MockIredisChat implements IRedisChat {
 
 	@Override
 	public boolean unsubscribe(final IChatListener chatClient, final String... channel) {
-		//return chatClients.remove(chatClient);
+		for (String currentChannel : channel) {
+			if (chatmap.containsKey(currentChannel)){
+				Set<IChatListener> clients = chatmap.get(currentChannel);
+				clients.remove(chatClient);
+			}
+		}
 		return false;
 	}
 
 
 	@Override
 	public List<String> channelList() {
-
-		return null;
+		List<String> returnList = new ArrayList<>();
+		for (Map.Entry<String,Set<IChatListener>> entry : chatmap.entrySet()){
+			returnList.add(entry.getKey());
+		}
+		return returnList;
 	}
 
 }

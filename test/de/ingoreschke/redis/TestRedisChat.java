@@ -3,6 +3,9 @@ package de.ingoreschke.redis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -75,6 +78,26 @@ public class TestRedisChat {
 		cut.publish(channel, msg);
 		assertEquals(msg, cl.getMessage());
 		cut.unsubscribe(cl, channel);
-		assertFalse(msg.equals(cl.getMessage()));
+		cut.publish(channel, "new Message");
+		assertEquals(msg, cl.getMessage());
+		cut.unsubscribe(cl, "channel_dontExists", "channel_dontExists2" );
+		assertEquals(msg, cl.getMessage());
 	}
+
+	@Test
+	public void testChannelList(){
+		MockChatClient cl = new MockChatClient("client1");
+		String channel1 = "Sport";
+		String channel2 = "Java";
+		String channel3 = "TDD - Developer";
+		String channel4 = "JUnit";
+		cut.subscribe(cl, channel1, channel2, channel3, channel4);
+		List<String> result = cut.channelList();
+		assertTrue(result.contains(channel1));
+		assertTrue(result.contains(channel2));
+		assertTrue(result.contains(channel3));
+		assertTrue(result.contains(channel4));
+	}
+
+
 }
