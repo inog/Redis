@@ -10,7 +10,7 @@ public interface IRedisChat {
 	 * @return number of registered Clients
 	 */
 	int publish(String channel, String message);
-	boolean subscribe(IChatListener chatClient, String ... channels);
-	boolean unsubscribe(IChatListener chatClient, String ... channels);
+	void subscribe(IChatListener chatClient, String ... channels);
+	void unsubscribe(IChatListener chatClient, String ... channels);
 	List<String> channelList();
 }

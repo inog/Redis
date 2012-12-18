@@ -34,7 +34,7 @@ public class MockIredisChat implements IRedisChat {
 	}
 
 	@Override
-	public boolean subscribe(final IChatListener chatClient, final String... channel) {
+	public void subscribe(final IChatListener chatClient, final String... channel) {
 
 		for (String currentChannel : channel) {
 			if(chatmap.containsKey(currentChannel)){
@@ -46,18 +46,16 @@ public class MockIredisChat implements IRedisChat {
 				chatmap.put(currentChannel, newClientSet);
 			}
 		}
-		return true;
 	}
 
 	@Override
-	public boolean unsubscribe(final IChatListener chatClient, final String... channel) {
+	public void unsubscribe(final IChatListener chatClient, final String... channel) {
 		for (String currentChannel : channel) {
 			if (chatmap.containsKey(currentChannel)){
 				Set<IChatListener> clients = chatmap.get(currentChannel);
 				clients.remove(chatClient);
 			}
 		}
-		return false;
 	}
 
 
