@@ -23,9 +23,6 @@ public class JedisChat implements IRedisChat {
 
 	@Override
 	public void subscribe(final IChatListener chatClient, final String... channels) {
-
-		jedis.subscribe(channels);
-
 	}
 
 	@Override
