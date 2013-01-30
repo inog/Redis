@@ -3,6 +3,7 @@ package de.ingoreschke.jedis;
 import java.util.List;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPubSub;
 import de.ingoreschke.redis.internal.IChatListener;
 import de.ingoreschke.redis.internal.IRedisChat;
 
@@ -23,6 +24,7 @@ public class JedisChat implements IRedisChat {
 
 	@Override
 	public void subscribe(final IChatListener chatClient, final String... channels) {
+		jedis.subscribe((JedisPubSub)chatClient, channels);
 	}
 
 	@Override
