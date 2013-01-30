@@ -4,11 +4,13 @@ import redis.clients.jedis.JedisPubSub;
 import de.ingoreschke.redis.internal.IChatListener;
 
 public class JedisChatListener extends JedisPubSub implements IChatListener{
+	private String message;
+
 
 	@Override
 	public void onMessage(final String channel, final String message) {
-		// TODO Auto-generated method stub
-
+		this.message = message;
+		System.out.println(channel + " : " + message);
 	}
 
 	@Override
@@ -41,4 +43,7 @@ public class JedisChatListener extends JedisPubSub implements IChatListener{
 
 	}
 
+	public String getMessage() {
+		return message;
+	}
 }
