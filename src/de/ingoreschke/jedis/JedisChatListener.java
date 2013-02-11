@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import redis.clients.jedis.JedisPubSub;
 import de.ingoreschke.redis.internal.IChatListener;
 
@@ -19,6 +21,7 @@ public class JedisChatListener extends JedisPubSub implements IChatListener{
 	public void onMessage(final String channel, final String message) {
 		appendMessage(channel, message);
 	}
+
 
 	private void appendMessage(final String channel, final String message) {
 		boolean channelExists = messages.containsKey(channel);
@@ -69,9 +72,15 @@ public class JedisChatListener extends JedisPubSub implements IChatListener{
 	 */
 	@Override
 	public String getLastMessage(final String channel) {
+		if(!messages.containsKey(channel)){
+			return "";
+		}
 		List<String> msgs = messages.get(channel);
+		if(msgs.isEmpty()){
+			return "";
+		}
 		String lastmessage = msgs.get(msgs.size() -1);
-		return lastmessage;
+		return StringUtils.trimToEmpty(lastmessage);
 	}
 
 	/**
