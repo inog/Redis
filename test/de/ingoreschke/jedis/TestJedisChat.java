@@ -6,7 +6,7 @@ import de.ingoreschke.redis.TestRedisChat;
 
 public class TestJedisChat extends TestRedisChat {
 
-	private JedisChat cut;
+	protected JedisChat cut;
 
 	@Override
 	@Before

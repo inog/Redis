@@ -1,16 +1,34 @@
 package de.ingoreschke.jedis;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import redis.clients.jedis.JedisPubSub;
 import de.ingoreschke.redis.internal.IChatListener;
 
 public class JedisChatListener extends JedisPubSub implements IChatListener{
-	private String message;
+	private Map<String, List<String>> messages;
 
+	public JedisChatListener(){
+		this.messages = new HashMap<String, List<String>>();
+	}
 
 	@Override
 	public void onMessage(final String channel, final String message) {
-		this.message = message;
-		System.out.println(channel + " : " + message);
+		appendMessage(channel, message);
+	}
+
+	private void appendMessage(final String channel, final String message) {
+		boolean channelExists = messages.containsKey(channel);
+		if(channelExists){
+			messages.get(channel).add(message);
+		}else{
+			ArrayList<String> messageList = new ArrayList<>();
+			messageList.add(message);
+			messages.put(channel, messageList);
+		}
 	}
 
 	@Override
@@ -43,7 +61,27 @@ public class JedisChatListener extends JedisPubSub implements IChatListener{
 
 	}
 
-	public String getMessage() {
-		return message;
+
+
+	/**
+	 * retrieve the last message in the given channel
+	 * @return the messages
+	 */
+	@Override
+	public String getLastMessage(final String channel) {
+		List<String> msgs = messages.get(channel);
+		String lastmessage = msgs.get(msgs.size() -1);
+		return lastmessage;
 	}
+
+	/**
+	 * retrieve all messages in the given channel
+	 * @return a List of messages
+	 */
+	@Override
+	public List<String> getAllMessages(final String channel) {
+		return messages.get(channel);
+	}
+
+
 }

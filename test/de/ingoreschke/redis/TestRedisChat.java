@@ -17,7 +17,7 @@ import de.ingoreschke.redis.mocks.MockIredisChat;
 
 public class TestRedisChat {
 
-	private IRedisChat cut; //class under test;
+	protected IRedisChat cut; //class under test;
 
 	@Before
 	public void setUp(){
@@ -58,7 +58,7 @@ public class TestRedisChat {
 		JedisChatListener cl = new JedisChatListener();
 		cut.subscribe(cl, channel);
 		cut.publish(channel, msg);
-		assertEquals(msg, cl.getMessage());
+		assertEquals(msg, cl.getLastMessage(channel));
 	}
 
 	@Test

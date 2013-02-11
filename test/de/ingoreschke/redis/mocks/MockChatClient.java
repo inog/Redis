@@ -1,5 +1,7 @@
 package de.ingoreschke.redis.mocks;
 
+import java.util.List;
+
 import de.ingoreschke.redis.internal.IChatListener;
 
 public class MockChatClient implements IChatListener {
@@ -18,5 +20,17 @@ public class MockChatClient implements IChatListener {
 
 	public String getMessage() {
 		return message;
+	}
+
+	@Override
+	public String getLastMessage(final String channel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllMessages(final String channel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
