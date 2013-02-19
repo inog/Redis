@@ -24,13 +24,11 @@ public class MockChatClient implements IChatListener {
 
 	@Override
 	public String getLastMessage(final String channel) {
-		// TODO Auto-generated method stub
-		return null;
+		return message;
 	}
 
 	@Override
 	public List<String> getAllMessages(final String channel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

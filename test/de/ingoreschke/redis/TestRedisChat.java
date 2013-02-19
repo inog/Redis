@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.ingoreschke.jedis.JedisChatListener;
 import de.ingoreschke.redis.internal.IRedisChat;
 import de.ingoreschke.redis.mocks.MockChatClient;
 import de.ingoreschke.redis.mocks.MockIredisChat;
@@ -18,10 +17,12 @@ import de.ingoreschke.redis.mocks.MockIredisChat;
 public class TestRedisChat {
 
 	protected IRedisChat cut; //class under test;
+	private MockChatClient client;
 
 	@Before
 	public void setUp(){
 		cut = new MockIredisChat();
+		client = new MockChatClient("client");
 	}
 
 	@Test
@@ -55,10 +56,9 @@ public class TestRedisChat {
 	public void testSubcribeToChannel(){
 		String channel = "Testchannel";
 		String msg = "hello some msg";
-		JedisChatListener cl = new JedisChatListener();
-		cut.subscribe(cl, channel);
+		cut.subscribe(client, channel);
 		cut.publish(channel, msg);
-		assertEquals(msg, cl.getLastMessage(channel));
+		assertEquals(msg, client.getLastMessage(channel));
 	}
 
 	@Test
